@@ -7,17 +7,21 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const nameParts = profileData.name.split(' ');
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(' ');
+
   return (
     <footer className="footer-section">
       <div className="container footer-container">
         <div className="footer-top">
           <div className="footer-brand">
             <a href="#home" className="navbar-logo">
-              <div className="logo-icon">{profileData.name.split(' ').map(n => n[0]).join('')}</div>
-              <span className="logo-text">{profileData.name.split(' ').pop()}<span className="text-gradient">.ai</span></span>
+              <div className="logo-icon">{nameParts.map(n => n[0]).join('')}</div>
+              <span className="logo-text">{firstName}<span className="text-gradient">.{lastName}</span></span>
             </a>
             <p className="footer-tagline">
-              Computational Biology & AI Drug Discovery Research. Hosted for <strong>$0</strong> on GitHub Pages.
+              Bridging Molecular Dynamics simulations, biophysics, and AI for rational drug design and open science.
             </p>
           </div>
 
@@ -33,10 +37,18 @@ export default function Footer() {
 
             <div className="link-column">
               <h4>Connect</h4>
-              <a href={profileData.github} target="_blank" rel="noreferrer">GitHub</a>
-              <a href={profileData.scholar} target="_blank" rel="noreferrer">Google Scholar</a>
-              <a href={profileData.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-              <a href={profileData.twitter} target="_blank" rel="noreferrer">Twitter / X</a>
+              {profileData.github && (
+                <a href={profileData.github} target="_blank" rel="noreferrer">GitHub</a>
+              )}
+              {profileData.scholar && (
+                <a href={profileData.scholar} target="_blank" rel="noreferrer">Google Scholar</a>
+              )}
+              {profileData.linkedin && (
+                <a href={profileData.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              )}
+              {profileData.twitter && (
+                <a href={profileData.twitter} target="_blank" rel="noreferrer">Twitter / X</a>
+              )}
             </div>
           </div>
         </div>

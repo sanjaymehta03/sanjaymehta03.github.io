@@ -5,7 +5,7 @@ export const projectsData = [
     description: "GPU-accelerated high-throughput molecular dynamics and virtual screening pipeline powered by OpenMM, AutoDock Vina, and automated Markov State Models.",
     tags: ["Python", "OpenMM", "CUDA", "Drug Discovery", "PyMOL"],
     github: "https://github.com/sanjaymehta03",
-    demo: "https://sanjaymehta03.github.io/",
+    demo: null,
     featured: true,
     stars: "1.4k"
   },
@@ -25,7 +25,7 @@ export const projectsData = [
     description: "Deep learning convolutional-attention network predicting off-target cleavage probability for therapeutic Cas9/Cas12 guide RNAs.",
     tags: ["Biotechnology", "Genomics", "PyTorch", "Bioinformatics"],
     github: "https://github.com/sanjaymehta03",
-    demo: "https://sanjaymehta03.github.io/",
+    demo: null,
     featured: false,
     stars: "530"
   },
@@ -35,7 +35,7 @@ export const projectsData = [
     description: "End-to-end framework for alchemical relative binding free energy (RBFE) perturbation calculations in kinase inhibitor optimization.",
     tags: ["Python", "FEP", "Molecular Dynamics", "Cheminformatics"],
     github: "https://github.com/sanjaymehta03",
-    demo: "https://sanjaymehta03.github.io/",
+    demo: null,
     featured: true,
     stars: "760"
   }

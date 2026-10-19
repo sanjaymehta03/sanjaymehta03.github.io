@@ -12,7 +12,7 @@ export default function Experience({ onOpenResume }) {
           <span className="section-subtitle">Career Path</span>
           <h2 className="section-title">Experience & Education</h2>
           <p className="section-description">
-            Track record of leadership in research laboratories and high-growth engineering teams.
+            Track record of research across academic laboratories and computational therapeutics teams.
           </p>
         </div>
 

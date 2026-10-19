@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { BookOpen, Copy, Check, ExternalLink, Download, FileText, ChevronDown, ChevronUp } from 'lucide-react';
+import { Copy, Check, ExternalLink, FileText, ChevronDown, ChevronUp } from 'lucide-react';
 import { papersData } from '../data/papersData';
 
 export default function Research() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [copiedId, setCopiedId] = useState(null);
   const [expandedPaper, setExpandedPaper] = useState(null);
-  const [bibtexModalPaper, setBibtexModalPaper] = useState(null);
 
   const categories = ['All', ...new Set(papersData.map(p => p.category))];
 
@@ -83,17 +82,10 @@ export default function Research() {
                   <button
                     onClick={() => handleCopyBibtex(paper)}
                     className={`btn btn-secondary btn-sm ${isCopied ? 'copied' : ''}`}
-                    title="Copy BibTeX Citation"
+                    title="Copy BibTeX Citation to Clipboard"
                   >
                     {isCopied ? <Check size={14} /> : <Copy size={14} />}
-                    {isCopied ? 'Copied!' : 'BibTeX'}
-                  </button>
-
-                  <button
-                    onClick={() => setBibtexModalPaper(paper)}
-                    className="btn btn-secondary btn-sm"
-                  >
-                    <FileText size={14} /> View BibTeX
+                    {isCopied ? 'Citation Copied!' : 'Copy BibTeX'}
                   </button>
 
                   {paper.doi && (
@@ -103,7 +95,7 @@ export default function Research() {
                       rel="noreferrer"
                       className="btn btn-secondary btn-sm"
                     >
-                      <ExternalLink size={14} /> DOI
+                      <ExternalLink size={14} /> Read Paper (DOI)
                     </a>
                   )}
 
@@ -114,7 +106,7 @@ export default function Research() {
                       rel="noreferrer"
                       className="btn btn-secondary btn-sm"
                     >
-                      Code
+                      <FileText size={14} /> Code
                     </a>
                   )}
                 </div>
@@ -123,30 +115,6 @@ export default function Research() {
           })}
         </div>
       </div>
-
-      {/* BibTeX Modal */}
-      {bibtexModalPaper && (
-        <div className="modal-backdrop" onClick={() => setBibtexModalPaper(null)}>
-          <div className="glass-card modal-box" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3>BibTeX Citation</h3>
-              <button className="modal-close" onClick={() => setBibtexModalPaper(null)}>×</button>
-            </div>
-            <p className="modal-subtitle">{bibtexModalPaper.title}</p>
-            <pre className="bibtex-code">
-              <code>{bibtexModalPaper.bibtex}</code>
-            </pre>
-            <div className="modal-actions">
-              <button
-                onClick={() => handleCopyBibtex(bibtexModalPaper)}
-                className="btn btn-primary btn-sm"
-              >
-                <Copy size={15} /> Copy to Clipboard
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

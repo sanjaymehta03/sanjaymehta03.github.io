@@ -20,7 +20,7 @@ export default function ResumeModal({ isOpen, onClose }) {
             <button onClick={handlePrint} className="btn btn-secondary btn-sm">
               <Printer size={15} /> Print / Save PDF
             </button>
-            <a href="/resume.pdf" download="resume.pdf" className="btn btn-primary btn-sm">
+            <a href="resume.pdf" download="resume.pdf" className="btn btn-primary btn-sm">
               <Download size={15} /> Download PDF
             </a>
             <button className="modal-close-btn" onClick={onClose}>×</button>

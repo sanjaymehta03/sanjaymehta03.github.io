@@ -6,9 +6,9 @@ export const profileData = {
   location: "San Francisco, CA / Remote",
   email: "sanjay.mehta@example.com",
   github: "https://github.com/sanjaymehta03",
-  scholar: "https://scholar.google.com",
-  linkedin: "https://linkedin.com",
-  twitter: "https://twitter.com",
+  scholar: "https://scholar.google.com/scholar?q=Sanjay+Mehta+computational+biology",
+  linkedin: "https://linkedin.com/in/sanjaymehta03",
+  twitter: "https://x.com/sanjaymehta03",
   resumeUrl: "#resume-modal",
   
   stats: [

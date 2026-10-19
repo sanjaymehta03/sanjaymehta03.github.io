@@ -50,7 +50,7 @@ export default function Navbar({ theme, toggleTheme, onOpenResume }) {
       <div className="container navbar-container">
         <a href="#home" className="navbar-logo">
           <div className="logo-icon">{profileData.name.split(' ').map(n => n[0]).join('')}</div>
-          <span className="logo-text">{profileData.name.split(' ').pop()}<span className="text-gradient">.ai</span></span>
+          <span className="logo-text">{profileData.name.split(' ')[0]}<span className="text-gradient">.{profileData.name.split(' ').slice(1).join('')}</span></span>
         </a>
 
         {/* Desktop Navigation */}

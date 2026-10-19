@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Search, Clock, Calendar, Tag, ArrowRight, X, Share2, BookOpen } from 'lucide-react';
+import { Search, Clock, Calendar, Tag, ArrowRight, X, Share2, Check, BookOpen } from 'lucide-react';
 import { blogPosts } from '../data/blogData';
 
 export default function Blog() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('All');
   const [activePost, setActivePost] = useState(null);
+  const [shareCopied, setShareCopied] = useState(false);
 
   // Collect all unique tags across posts
   const allTags = ['All', ...new Set(blogPosts.flatMap(post => post.tags))];
@@ -156,11 +157,13 @@ export default function Blog() {
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(window.location.href);
-                  alert('Article link copied to clipboard!');
+                  setShareCopied(true);
+                  setTimeout(() => setShareCopied(false), 2200);
                 }}
-                className="btn btn-secondary btn-sm"
+                className={`btn btn-secondary btn-sm ${shareCopied ? 'copied' : ''}`}
               >
-                <Share2 size={15} /> Share Article
+                {shareCopied ? <Check size={15} /> : <Share2 size={15} />}
+                {shareCopied ? 'Link Copied!' : 'Share Article'}
               </button>
               <button onClick={() => setActivePost(null)} className="btn btn-primary btn-sm">
                 Close Article

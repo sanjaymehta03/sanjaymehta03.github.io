@@ -37,21 +37,31 @@ export default function Hero({ onOpenResume }) {
 
           <div className="hero-socials">
             <span className="socials-label">Connect:</span>
-            <a href={profileData.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="social-link">
-              <Github size={20} />
-            </a>
-            <a href={profileData.scholar} target="_blank" rel="noreferrer" aria-label="Google Scholar" className="social-link">
-              <Sparkles size={20} />
-            </a>
-            <a href={profileData.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-link">
-              <Linkedin size={20} />
-            </a>
-            <a href={profileData.twitter} target="_blank" rel="noreferrer" aria-label="Twitter" className="social-link">
-              <Twitter size={20} />
-            </a>
-            <a href={`mailto:${profileData.email}`} aria-label="Email" className="social-link">
-              <Mail size={20} />
-            </a>
+            {profileData.github && (
+              <a href={profileData.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="social-link">
+                <Github size={20} />
+              </a>
+            )}
+            {profileData.scholar && (
+              <a href={profileData.scholar} target="_blank" rel="noreferrer" aria-label="Google Scholar" className="social-link">
+                <Sparkles size={20} />
+              </a>
+            )}
+            {profileData.linkedin && (
+              <a href={profileData.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-link">
+                <Linkedin size={20} />
+              </a>
+            )}
+            {profileData.twitter && (
+              <a href={profileData.twitter} target="_blank" rel="noreferrer" aria-label="Twitter / X" className="social-link">
+                <Twitter size={20} />
+              </a>
+            )}
+            {profileData.email && (
+              <a href={`mailto:${profileData.email}`} aria-label="Email" className="social-link">
+                <Mail size={20} />
+              </a>
+            )}
           </div>
         </div>
 
