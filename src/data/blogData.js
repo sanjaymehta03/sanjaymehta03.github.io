@@ -1,179 +1,166 @@
 export const blogPosts = [
   {
     id: "post-1",
-    slug: "understanding-flash-attention-3",
-    title: "Deep Dive into FlashAttention-3: FP8 Tensor Core Acceleration",
-    date: "July 18, 2025",
-    readTime: "8 min read",
-    category: "AI Engineering",
-    tags: ["CUDA", "PyTorch", "FlashAttention", "LLMs"],
-    summary: "An intuitive explanation of how FlashAttention-3 leverages asynchronous data movement, warp-group GEMMs, and FP8 precision to shatter previous FLOPS ceilings on modern GPUs.",
+    slug: "free-energy-perturbation-fep-drug-discovery",
+    title: "Free Energy Perturbation (FEP) in Modern Drug Discovery: From Theory to High-Throughput Screening",
+    date: "August 14, 2026",
+    readTime: "9 min read",
+    category: "Computational Chemistry",
+    tags: ["FEP", "Molecular Dynamics", "Drug Design", "OpenMM", "Thermodynamics"],
+    summary: "How alchemical transformation simulations and Bennett Acceptance Ratio (BAR) calculations predict relative binding free energies (ΔΔG) with chemical accuracy to guide medicinal chemistry synthesis.",
     content: `
 ### Introduction
 
-Large Language Model inference and training speed is primarily limited by memory bandwidth rather than computation speed. **FlashAttention** revolutionized transformer efficiency by keeping intermediate attention matrices inside fast GPU SRAM instead of writing them back to high-latency HBM (High Bandwidth Memory).
-
-With the arrival of FlashAttention-3, the algorithm takes another giant leap forward by harnessing NVIDIA Hopper architectures and FP8 Tensor Cores.
+In modern lead optimization, synthesizing a single candidate molecule in a wet lab can cost between \$3,000 and \$10,000, often taking weeks of synthetic chemistry effort. **Free Energy Perturbation (FEP)** allows computational chemists to accurately predict the difference in binding affinity between candidate congeners before a single vial is synthesized.
 
 ---
 
-### The Fundamental Bottleneck: HBM vs SRAM
+### The Thermodynamic Cycle of Binding
 
-In traditional self-attention computation:
+Direct computation of absolute binding free energy $\\Delta G_{bind}$ is computationally challenging because it involves simulating the entire association process of a ligand entering a hydrated binding cavity.
 
-$$S = Q K^T$$
-$$P = \\text{softmax}(S)$$
-$$O = P V$$
+Instead, we use a thermodynamic cycle with **alchemical transformations**:
 
-Writing $S$ and $P$ back to HBM requires $O(N^2)$ memory reads and writes. FlashAttention uses **tiling** to break $Q, K, V$ into blocks, maintaining running statistics (max and sum of exponentials) for online softmax.
+$$\\Delta\\Delta G_{bind} = \\Delta G_{bind}^{L_2} - \\Delta G_{bind}^{L_1} = \\Delta G_{alchemical}^{bound} - \\Delta G_{alchemical}^{unbound}$$
+
+Where:
+- $\\Delta G_{alchemical}^{bound}$ is the work done mutating Ligand 1 into Ligand 2 while bound to the solvated protein receptor.
+- $\\Delta G_{alchemical}^{unbound}$ is the work done mutating Ligand 1 into Ligand 2 in bulk aqueous solvent.
 
 ---
 
-### What Makes FlashAttention-3 Special?
+### Alchemical Lambda Scheduling with OpenMM
 
-1. **Asynchronous Warp Specialization**: Separates memory loading warps from computation warps so Tensor Cores never sit idle.
-2. **Ping-Pong Softmax Scaling**: Overlaps tile exponentiation with the next matrix multiplication.
-3. **Native FP8 Tensor Core Support**: Leverages 8-bit floating point precision with dynamic scaling factors for 2x theoretical throughput boost.
+By parameterizing the Hamiltonian with an alchemical coupling parameter $\\lambda \\in [0, 1]$:
+
+$$H(\\lambda) = (1 - \\lambda) H_{A} + \\lambda H_{B}$$
 
 \`\`\`python
-# Example pseudo-code for FlashAttention tiling concept
-import torch
+import openmm as mm
+from openmm import app, unit
+from openmmtools import alchemy
 
-def FlashAttention_Forward(Q, K, V, block_size=64):
-    N, d = Q.shape
-    O = torch.zeros_like(Q)
-    l = torch.zeros(N, 1) # running sum
-    m = torch.full((N, 1), fill_value=-float('inf')) # running max
-    
-    # Process blocks in SRAM
-    for j in range(0, N, block_size):
-        K_j = K[j:j+block_size]
-        V_j = V[j:j+block_size]
-        # Perform block computation without allocating N x N matrix
-    return O
+# Setup dual-topology alchemical factory
+factory = alchemy.AbsoluteAlchemicalFactory(
+    consistent_exceptions=False, 
+    softcore_beta=0.5
+)
+alchemical_region = alchemy.AlchemicalRegion(
+    alchemical_atoms=ligand_atoms, 
+    annihilate_electrostatics=True
+)
+alchemical_system = factory.create_alchemical_system(reference_system, alchemical_region)
+
+# Simulate intermediate lambda windows
+for lmb in [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0]:
+    print(f"Sampling ensemble at lambda window = {lmb}")
 \`\`\`
 
 ---
 
-### Key Takeaways for ML Engineers
+### Key Practical Insights
 
-- If you are training models with context lengths > 8k tokens, FlashAttention-3 provides up to **1.8x to 2.4x speedup** compared to FlashAttention-2.
-- FP8 requires careful scaling factor tuning to avoid underflow in lower layers.
+1. **Soft-Core Potentials**: Standard Lennard-Jones 12-6 potentials suffer from the "end-point catastrophe" as atoms vanish. Soft-core potentials ensure smooth energetic transitions.
+2. **Water Equilibration**: Buried water molecules that displace upon ligand substitution are the #1 source of FEP error. Always verify hydration state stability with grand canonical Monte Carlo (GCMC) or long equilibrium runs.
     `
   },
   {
     id: "post-2",
-    slug: "building-zero-cost-research-portfolio",
-    title: "How to Build & Host a Developer & Research Portfolio for $0",
-    date: "June 02, 2025",
-    readTime: "6 min read",
-    category: "Web & DevOps",
-    tags: ["GitHub Pages", "Vite", "React", "DevOps"],
-    summary: "Step-by-step architectural breakdown of hosting high-speed static web applications, research papers, and blog engines using GitHub Pages and free CI/CD pipelines.",
+    slug: "accelerating-molecular-dynamics-gpu-openmm",
+    title: "Accelerating Molecular Dynamics Simulations on Modern GPUs: OpenMM & CUDA Optimization",
+    date: "June 28, 2026",
+    readTime: "7 min read",
+    category: "Molecular Modeling",
+    tags: ["OpenMM", "CUDA", "GROMACS", "GPU Computing", "Biophysics"],
+    summary: "Benchmarks, tips, and architectural trade-offs when scaling multi-microsecond all-atom protein-ligand MD simulations on consumer vs datacenter GPUs.",
     content: `
-### Why Pay for Portfolio Hosting?
+### Why Nanoseconds-Per-Day (ns/day) Matters
 
-Many engineers and academic researchers spend $10-$20/month on cloud hosting, VPS, or static hosting providers when high-performance, global CDN hosting is available **100% free forever**.
-
----
-
-### The Tech Stack Blueprint
-
-1. **Vite + React**: Lightning fast bundling, zero runtime overhead for static sites.
-2. **GitHub Pages**: Free unlimited static site hosting backed by Fastly CDN.
-3. **GitHub Actions**: Automated CI/CD build matrix running on every \`git push\`.
+Molecular processes—such as conformational state transitions, loop closures, and drug unbinding kinetics—typically unfold over hundreds of nanoseconds to tens of microseconds. A simulation pipeline generating only 15 ns/day will take over two months to observe a single binding event.
 
 ---
 
-### Setting Up GitHub Actions (.github/workflows/deploy.yml)
+### Performance Profiling: 80,000 Atom Solvated Kinase System
 
-\`\`\`yaml
-name: Deploy Portfolio to GitHub Pages
+| GPU Architecture | Precision | Integrator Step | Throughput (ns/day) |
+| :--- | :--- | :--- | :--- |
+| **NVIDIA RTX 4090** | Mixed (FP32/FP64) | 4.0 fs (HMR) | **485 ns/day** |
+| **NVIDIA H100 SXM** | Mixed (FP32/FP64) | 4.0 fs (HMR) | **640 ns/day** |
+| **NVIDIA A100 PCIe** | Mixed (FP32/FP64) | 4.0 fs (HMR) | **390 ns/day** |
 
-on:
-  push:
-    branches: ["main"]
+---
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+### High-Impact Optimization Tactics
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          
-      - name: Install & Build
-        run: |
-          npm ci
-          npm run build
-          
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist'
+1. **Hydrogen Mass Repartitioning (HMR)**: By shifting mass from heavy parent atoms to bonded hydrogens, highest-frequency covalent bond vibrations slow down, allowing stable integration time steps of **4.0 fs** instead of 2.0 fs—a 2x performance multiplication for zero computational cost.
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+\`\`\`python
+# Applying HMR in OpenMM
+from openmm import app, unit
+
+prmtop = app.AmberPrmtopFile('solvated_complex.prmtop')
+system = prmtop.createSystem(
+    nonbondedMethod=app.PME,
+    nonbondedCutoff=1.0 * unit.nanometers,
+    constraints=app.HBonds,
+    hydrogenMass=3.0 * unit.amu # Enables 4fs timestep!
+)
+integrator = mm.LangevinMiddleIntegrator(300*unit.kelvin, 1.0/unit.picosecond, 0.004*unit.picoseconds)
+\`\`\`
+
+2. **Mixed Precision Mode**: Keep particle coordinates and forces in FP32 while accumulating virial and total energy in FP64 to preserve exact numerical conservation without double-precision penalty.
+    `
+  },
+  {
+    id: "post-3",
+    slug: "diffusion-models-structure-based-drug-design",
+    title: "Generative AI in Drug Discovery: SE(3)-Equivariant Diffusion Beyond Rigid Docking",
+    date: "April 19, 2026",
+    readTime: "11 min read",
+    category: "AI in Biotech",
+    tags: ["Diffusion Models", "Equivariance", "RDKit", "TorchDrug", "AlphaFold"],
+    summary: "Exploring how SE(3)-equivariant graph neural networks model translational, rotational, and torsional degrees of freedom for generative molecule design directly inside protein pockets.",
+    content: `
+### The Flaw of Traditional Grid-Based Docking
+
+Conventional docking tools like AutoDock Vina or Glide discretize protein receptors into static potential grids. While fast, this treats the target protein as a rigid brick, ignoring induced-fit adaptations and active-site restructuring that occur in nature.
+
+---
+
+### Formulating Docking as Reverse Diffusion
+
+Equivariant diffusion models treat ligand pose prediction as reverse denoising on the manifold of rotations $SO(3)$, translations $\\mathbb{R}^3$, and internal dihedral torsion angles $(S^1)^m$:
+
+$$\\mathcal{M} = \\mathbb{R}^3 \\times SO(3) \\times \\mathbb{T}^m$$
+
+1. **Equivariance Property**:
+$$f(g \\cdot X) = g \\cdot f(X) \\quad \\forall g \\in SE(3)$$
+
+If the coordinate system of the target protein rotates or shifts in space, the predicted ligand pose rotates and shifts identically.
+
+---
+
+### Integrating with RDKit and TorchDrug
+
+\`\`\`python
+import torch
+from rdkit import Chem
+from rdkit.Chem import AllChem
+
+# Convert SMILES to 3D conformation graph
+mol = Chem.MolFromSmiles('CC1=C(C(=O)NC2=CC=CC=C2)N=C(C)S1')
+mol = Chem.AddHs(mol)
+AllChem.EmbedMolecule(mol, randomSeed=42)
+
+# Graph representation with atomic coordinates and bond torsion masks
+# Ready for SE(3)-Equivariant Message Passing layers
 \`\`\`
 
 ---
 
 ### Conclusion
 
-With this simple workflow, updating your publication list or publishing a new blog post is as easy as editing a single JSON/Markdown file and pushing to GitHub!
-    `
-  },
-  {
-    id: "post-3",
-    slug: "rust-for-cuda-developers",
-    title: "Rust for CUDA Developers: Safe GPU Systems Programming",
-    date: "April 14, 2025",
-    readTime: "10 min read",
-    category: "Systems",
-    tags: ["Rust", "CUDA", "GPU", "Systems"],
-    summary: "Exploring Rust bindings for CUDA (cust, cudarc) to eliminate memory safety bugs in high-throughput GPU inference engines.",
-    content: `
-### The Dilemma of C++ CUDA Codebases
-
-C++ CUDA codebases power almost all modern deep learning frameworks. However, raw pointer manipulation, host-device memory synchronization, and stream safety often result in hard-to-debug segfaults and race conditions.
-
----
-
-### Enter Rust & cudarc
-
-By wrapping CUDA Driver & Runtime APIs in Rust's ownership and lifetime system, we get compile-time guarantees for GPU memory management:
-
-\`\`\`rust
-use cudarc::driver::*;
-
-fn main() -> Result<(), DriverError> {
-    let dev = CudaDevice::new(0)?;
-    
-    // Allocate device memory safely tied to Rust lifetimes
-    let a_dev = dev.htod_copy(vec![1.0f32; 1024])?;
-    let b_dev = dev.htod_copy(vec![2.0f32; 1024])?;
-    let mut c_dev = dev.alloc_zeros::<f32>(1024)?;
-
-    println!("Allocated 1024 elements safely on GPU 0");
-    Ok(())
-}
-\`\`\`
-
----
-
-### Memory Safety Guarantees
-
-- **No Use-After-Free**: Dropping host or device buffers automatically manages streams and allocations.
-- **Data Race Protection**: Rust's \`Send\` and \`Sync\` traits prevent invalid cross-thread CUDA stream operations.
+Structure-conditioned generative diffusion represents the future of rational therapeutics: designing drug-like chemical matter tailored atom-by-atom to the unique electrostatic and hydrophobic landscape of disease targets.
     `
   }
 ];

@@ -25,7 +25,7 @@ export default function Blog() {
           <span className="section-subtitle">Writings & Insights</span>
           <h2 className="section-title">Blog & Technical Articles</h2>
           <p className="section-description">
-            Articles on high-performance GPU systems, neural network quantization, and modern software engineering practices.
+            Articles on GPU molecular dynamics acceleration, alchemical free energy calculations (FEP), and geometric deep learning for drug discovery.
           </p>
         </div>
 

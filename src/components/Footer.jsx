@@ -17,7 +17,7 @@ export default function Footer() {
               <span className="logo-text">{profileData.name.split(' ').pop()}<span className="text-gradient">.ai</span></span>
             </a>
             <p className="footer-tagline">
-              Open-source AI research & systems engineering. Hosted for <strong>$0</strong> on GitHub Pages.
+              Computational Biology & AI Drug Discovery Research. Hosted for <strong>$0</strong> on GitHub Pages.
             </p>
           </div>
 

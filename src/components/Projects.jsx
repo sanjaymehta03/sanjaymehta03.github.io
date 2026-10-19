@@ -10,7 +10,7 @@ export default function Projects() {
           <span className="section-subtitle">Open Source & Engineering</span>
           <h2 className="section-title">Featured Projects</h2>
           <p className="section-description">
-            High-impact software repositories, custom GPU kernels, and open-source infrastructure tools.
+            Open-source molecular dynamics pipelines, binding affinity calculators, and machine learning drug discovery toolkits.
           </p>
         </div>
 

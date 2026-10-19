@@ -1,42 +1,42 @@
 export const projectsData = [
   {
     id: "project-1",
-    title: "VLLM-Quant",
-    description: "High-performance 4-bit and 3-bit LLM quantization engine integrated with vLLM for high-throughput GPU inference.",
-    tags: ["Rust", "PyTorch", "CUDA", "vLLM"],
+    title: "OpenMD-Screen",
+    description: "GPU-accelerated high-throughput molecular dynamics and virtual screening pipeline powered by OpenMM, AutoDock Vina, and automated Markov State Models.",
+    tags: ["Python", "OpenMM", "CUDA", "Drug Discovery", "PyMOL"],
     github: "https://github.com/sanjaymehta03",
-    demo: "https://example.com",
+    demo: "https://sanjaymehta03.github.io/",
     featured: true,
-    stars: "1.8k"
+    stars: "1.4k"
   },
   {
     id: "project-2",
-    title: "SubQuadratic-Attention Kernel",
-    description: "Custom Triton and CUDA kernels implementing sub-quadratic memory attention for long-context multi-modal models.",
-    tags: ["CUDA", "Triton", "Python", "Deep Learning"],
+    title: "DiffEquivariant-Dock",
+    description: "SE(3)-equivariant score-based diffusion model predicting flexible protein-ligand co-complexes with torsion angle sampling.",
+    tags: ["PyTorch", "Geometric GNN", "Diffusion Models", "RDKit"],
     github: "https://github.com/sanjaymehta03",
     demo: null,
     featured: true,
-    stars: "940"
+    stars: "920"
   },
   {
     id: "project-3",
-    title: "BioSeq-Aligner",
-    description: "Distributed genomic sequence search algorithm leveraging GPU warp-matrix instructions for fast homology search.",
-    tags: ["C++20", "CUDA", "Bioinformatics"],
+    title: "CRISPR-OffTargetPredict",
+    description: "Deep learning convolutional-attention network predicting off-target cleavage probability for therapeutic Cas9/Cas12 guide RNAs.",
+    tags: ["Biotechnology", "Genomics", "PyTorch", "Bioinformatics"],
     github: "https://github.com/sanjaymehta03",
-    demo: "https://example.com",
+    demo: "https://sanjaymehta03.github.io/",
     featured: false,
-    stars: "430"
+    stars: "530"
   },
   {
     id: "project-4",
-    title: "AcademiaFlex Web Engine",
-    description: "Open-source zero-cost static website template for researchers, scholars, and engineers with BibTeX & Blog support.",
-    tags: ["React", "Vite", "JavaScript", "CSS3"],
+    title: "Kinase-FEP-Automator",
+    description: "End-to-end framework for alchemical relative binding free energy (RBFE) perturbation calculations in kinase inhibitor optimization.",
+    tags: ["Python", "FEP", "Molecular Dynamics", "Cheminformatics"],
     github: "https://github.com/sanjaymehta03",
-    demo: "https://example.com",
+    demo: "https://sanjaymehta03.github.io/",
     featured: true,
-    stars: "620"
+    stars: "760"
   }
 ];

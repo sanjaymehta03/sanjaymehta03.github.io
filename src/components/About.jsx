@@ -19,7 +19,7 @@ export default function About() {
           <span className="section-subtitle">Biography & Expertise</span>
           <h2 className="section-title">About & Technical Skills</h2>
           <p className="section-description">
-            Combining academic rigor with production engineering experience to solve high-complexity computational challenges.
+            Bridging biophysical principles, molecular simulations, and machine learning to accelerate lead discovery and target validation.
           </p>
         </div>
 

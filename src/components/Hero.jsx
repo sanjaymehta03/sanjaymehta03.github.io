@@ -62,24 +62,25 @@ export default function Hero({ onOpenResume }) {
                 <span className="dot red"></span>
                 <span className="dot yellow"></span>
                 <span className="dot green"></span>
-                <span className="code-title">research_focus.py</span>
+                <span className="code-title">molecular_docking.py</span>
               </div>
               <pre className="code-body">
                 <code>
-<span className="code-keyword">class</span> <span className="code-class">ResearchAgent</span>:
-    <span className="code-keyword">def</span> <span className="code-func">__init__</span>(self):
-        self.focus = [<span className="code-str">"LLM Alignment"</span>, <span className="code-str">"SubQuadratic Attn"</span>]
-        self.location = <span className="code-str">"{profileData.location}"</span>
+<span className="code-keyword">class</span> <span className="code-class">MolecularDrugDesign</span>:
+    <span className="code-keyword">def</span> <span className="code-func">__init__</span>(self, target_pdb):
+        self.receptor = openmm.load(<span className="code-str">"target_kinase.pdb"</span>)
+        self.focus = [<span className="code-str">"FEP Calculations"</span>, <span className="code-str">"MD Dynamics"</span>]
     
-    <span className="code-keyword">def</span> <span className="code-func">optimize_inference</span>(self, model):
-        <span className="code-keyword">return</span> model.quantize(bits=<span className="code-num">4</span>).compile()
+    <span className="code-keyword">def</span> <span className="code-func">screen_binding_affinity</span>(self, ligand):
+        trajectory = openmm.simulate(steps=<span className="code-num">500_000</span>)
+        <span className="code-keyword">return</span> compute_delta_g(trajectory, ligand)
                 </code>
               </pre>
             </div>
             
             <div className="floating-stat-badge glass-card">
-              <span className="stat-number">450+</span>
-              <span className="stat-label">Citations</span>
+              <span className="stat-number">60+ µs</span>
+              <span className="stat-label">MD Trajectories</span>
             </div>
           </div>
         </div>

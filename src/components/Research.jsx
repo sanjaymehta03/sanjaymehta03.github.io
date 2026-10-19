@@ -27,7 +27,7 @@ export default function Research() {
           <span className="section-subtitle">Peer-Reviewed Publications & Preprints</span>
           <h2 className="section-title">Research Papers</h2>
           <p className="section-description">
-            Scientific articles in top-tier conferences (NeurIPS, ICML, ACL) and journals focusing on deep learning scalability and AI systems.
+            Peer-reviewed articles in computational biophysics, medicinal chemistry, and structural bioinformatics (JCIM, J. Med. Chem., Biophysical Journal) focusing on molecular dynamics and AI drug discovery.
           </p>
         </div>
 
