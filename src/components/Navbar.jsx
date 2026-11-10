@@ -1,119 +1,122 @@
-import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, FileText, BookOpen, GraduationCap, Briefcase, Mail, Code } from 'lucide-react';
-import { profileData } from '../data/profileData';
+import React, { useState } from 'react';
+import { TopNav, TopNavHeading, TopNavItem } from '@astryxdesign/core/TopNav';
+import { Button } from '@astryxdesign/core/Button';
+import { Badge } from '@astryxdesign/core/Badge';
+import { HStack } from '@astryxdesign/core/HStack';
+import { GithubIcon } from './Icons';
+import { Menu, X, FileText, Send } from 'lucide-react';
 
-export default function Navbar({ theme, toggleTheme, onOpenResume }) {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+export default function Navbar({ onOpenResume }) {
+  const [activeSection, setActiveSection] = useState('hero');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-
-      // Simple active link tracker
-      const sections = ['home', 'about', 'experience', 'research', 'blog', 'projects', 'contact'];
-      const scrollPos = window.scrollY + 200;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: 'About', href: '#about', icon: GraduationCap },
-    { name: 'Experience', href: '#experience', icon: Briefcase },
-    { name: 'Research', href: '#research', icon: BookOpen },
-    { name: 'Blog', href: '#blog', icon: FileText },
-    { name: 'Projects', href: '#projects', icon: Code },
-    { name: 'Contact', href: '#contact', icon: Mail },
+  const navItems = [
+    { id: 'hero', label: 'Home', href: '#hero' },
+    { id: 'about', label: 'About Me', href: '#about' },
+    { id: 'projects', label: 'Projects', href: '#projects' },
+    { id: 'contact', label: 'Contact', href: '#contact' },
   ];
 
   return (
-    <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container navbar-container">
-        <a href="#home" className="navbar-logo">
-          <div className="logo-icon">{profileData.name.split(' ').map(n => n[0]).join('')}</div>
-          <span className="logo-text">{profileData.name.split(' ')[0]}<span className="text-gradient">.{profileData.name.split(' ').slice(1).join('')}</span></span>
-        </a>
+    <header className="sticky top-0 z-50 bg-[var(--color-background-surface,#ffffff)]/90 backdrop-blur-md border-b border-[var(--color-border-subtle,#e5e7eb)]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <TopNav
+          label="Sanjay Mehta Portfolio Navigation"
+          heading={
+            <TopNavHeading
+              logo={
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-sm shadow-sm">
+                  🧬
+                </span>
+              }
+              heading="Sanjay Mehta"
+              subheading="AI Drug Discovery & Biophysics"
+              headingHref="#hero"
+            />
+          }
+          startContent={
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <TopNavItem
+                  key={item.id}
+                  label={item.label}
+                  href={item.href}
+                  isSelected={activeSection === item.id}
+                  onClick={() => setActiveSection(item.id)}
+                />
+              ))}
+            </div>
+          }
+          endContent={
+            <HStack gap={2} vAlign="center">
+              <div className="hidden sm:inline-flex">
+                <Badge
+                  label="React 19 • Astryx"
+                  variant="neutral"
+                  size="sm"
+                />
+              </div>
 
-        {/* Desktop Navigation */}
-        <nav className="desktop-nav">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`nav-link ${activeSection === link.href.substring(1) ? 'active' : ''}`}
-            >
-              {link.name}
-            </a>
-          ))}
+              <Button
+                label="Resume"
+                variant="secondary"
+                size="sm"
+                onClick={onOpenResume}
+              />
 
-          <button onClick={onOpenResume} className="btn btn-secondary btn-sm nav-cv-btn">
-            <FileText size={15} /> Resume
-          </button>
+              <Button
+                label="GitHub"
+                variant="ghost"
+                size="sm"
+                href="https://github.com/sanjaymehta03"
+                target="_blank"
+                rel="noreferrer"
+              />
 
-          <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme">
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-        </nav>
+              {/* Mobile menu trigger */}
+              <button
+                type="button"
+                className="md:hidden p-1.5 rounded-md hover:bg-neutral-100 text-neutral-600 transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle Navigation Menu"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </HStack>
+          }
+        />
 
-        {/* Mobile menu trigger */}
-        <div className="mobile-actions">
-          <button onClick={toggleTheme} className="theme-toggle-btn mobile-theme-btn" aria-label="Toggle theme">
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="mobile-menu-btn" aria-label="Toggle menu">
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+        {/* Mobile dropdown menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden py-3 border-t border-neutral-200 flex flex-col gap-2">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className="px-3 py-2 rounded-md text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors"
+                onClick={() => {
+                  setActiveSection(item.id);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+            <div className="pt-2 border-t border-neutral-100 flex gap-2">
+              <Button
+                label="View Resume"
+                variant="secondary"
+                size="sm"
+                width="100%"
+                onClick={() => {
+                  onOpenResume();
+                  setMobileMenuOpen(false);
+                }}
+              />
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* Mobile Drawer */}
-      {mobileOpen && (
-        <div className="mobile-drawer">
-          <nav className="mobile-nav-links">
-            {navLinks.map((link) => {
-              const Icon = link.icon;
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="mobile-nav-link"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  <Icon size={18} /> {link.name}
-                </a>
-              );
-            })}
-            <button
-              onClick={() => {
-                setMobileOpen(false);
-                onOpenResume();
-              }}
-              className="btn btn-primary btn-sm mobile-cv-btn"
-            >
-              <FileText size={16} /> View Resume
-            </button>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }

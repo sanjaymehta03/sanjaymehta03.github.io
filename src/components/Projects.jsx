@@ -1,73 +1,158 @@
-import React from 'react';
-import { FolderGit2, Star, ExternalLink, Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { Section } from '@astryxdesign/core/Section';
+import { Heading } from '@astryxdesign/core/Heading';
+import { Text } from '@astryxdesign/core/Text';
+import { Card } from '@astryxdesign/core/Card';
+import { Grid } from '@astryxdesign/core/Grid';
+import { Badge } from '@astryxdesign/core/Badge';
+import { Button } from '@astryxdesign/core/Button';
+import { VStack } from '@astryxdesign/core/VStack';
+import { HStack } from '@astryxdesign/core/HStack';
 import { projectsData } from '../data/projectsData';
+import { GithubIcon } from './Icons';
+import { Star, GitFork, ExternalLink, Code2, Sparkles, FolderGit2 } from 'lucide-react';
 
 export default function Projects() {
+  const [selectedFilter, setSelectedFilter] = useState('All');
+
+  const filters = ['All', 'Molecular Dynamics', 'Deep Learning', 'Genomics'];
+
+  const filteredProjects = projectsData.filter((project) => {
+    if (selectedFilter === 'All') return true;
+    if (selectedFilter === 'Molecular Dynamics') {
+      return project.tags.some(t => t.includes('MD') || t.includes('OpenMM') || t.includes('FEP') || t.includes('Dynamics'));
+    }
+    if (selectedFilter === 'Deep Learning') {
+      return project.tags.some(t => t.includes('PyTorch') || t.includes('Diffusion') || t.includes('GNN'));
+    }
+    if (selectedFilter === 'Genomics') {
+      return project.tags.some(t => t.includes('CRISPR') || t.includes('Genomics') || t.includes('Bioinformatics'));
+    }
+    return true;
+  });
+
   return (
-    <section id="projects" className="section projects-section">
-      <div className="container">
-        <div className="section-header">
-          <span className="section-subtitle">Open Source & Engineering</span>
-          <h2 className="section-title">Featured Projects</h2>
-          <p className="section-description">
-            Open-source molecular dynamics pipelines, binding affinity calculators, and machine learning drug discovery toolkits.
-          </p>
-        </div>
+    <Section id="projects" variant="transparent" padding={6} className="py-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <VStack gap={6}>
+          
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <VStack gap={2}>
+              <HStack gap={2} vAlign="center">
+                <Badge label="Open Source & Research Software" variant="neutral" size="sm" />
+              </HStack>
+              <Heading level={2} weight="bold">
+                Featured Projects & Software
+              </Heading>
+              <Text color="secondary" size="lg">
+                Production-grade algorithms, computational pipelines, and deep learning architectures for therapeutic discovery.
+              </Text>
+            </VStack>
 
-        <div className="projects-grid">
-          {projectsData.map((project) => (
-            <div key={project.id} className="glass-card project-card">
-              <div className="project-card-header">
-                <div className="project-icon-box">
-                  <FolderGit2 size={24} className="project-icon" />
-                </div>
-                <div className="project-header-actions">
-                  {project.stars && (
-                    <span className="star-badge">
-                      <Star size={14} className="star-icon" /> {project.stars}
-                    </span>
-                  )}
-                </div>
-              </div>
+            {/* Filter Pills */}
+            <div className="flex flex-wrap gap-2">
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  type="button"
+                  onClick={() => setSelectedFilter(filter)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    selectedFilter === filter
+                      ? 'bg-neutral-900 text-white shadow-sm'
+                      : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+          </div>
 
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-description">{project.description}</p>
+          {/* Projects Grid */}
+          <Grid columns={{ minWidth: 320, max: 2 }} gap={4} className="pt-2">
+            {filteredProjects.map((project) => (
+              <Card
+                key={project.id}
+                padding={5}
+                elevation="none"
+                className="border border-neutral-200 bg-white hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <VStack gap={4}>
+                  
+                  {/* Card Header */}
+                  <div className="flex items-start justify-between gap-2">
+                    <HStack gap={2} vAlign="center">
+                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-700">
+                        <FolderGit2 className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <Heading level={4} weight="semibold">
+                          {project.title}
+                        </Heading>
+                        {project.featured && (
+                          <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+                            Featured
+                          </span>
+                        )}
+                      </div>
+                    </HStack>
 
-              <div className="project-tags">
-                {project.tags.map((t, idx) => (
-                  <span key={idx} className="tag">
-                    {t}
-                  </span>
-                ))}
-              </div>
+                    {/* Stars Pill */}
+                    {project.stars && (
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-neutral-100 text-neutral-700 text-xs font-mono font-medium">
+                        <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                        {project.stars}
+                      </span>
+                    )}
+                  </div>
 
-              <div className="project-links">
-                {project.github && (
+                  {/* Description */}
+                  <p className="text-sm text-neutral-600 leading-relaxed min-h-[50px]">
+                    {project.description}
+                  </p>
+
+                  {/* Tech Stack Tags */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((tag, i) => (
+                      <Badge
+                        key={i}
+                        label={tag}
+                        variant="neutral"
+                        size="sm"
+                      />
+                    ))}
+                  </div>
+
+                </VStack>
+
+                {/* Card Footer Actions */}
+                <div className="pt-4 mt-4 border-t border-neutral-100 flex items-center justify-between">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn btn-secondary btn-sm"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-800 hover:text-emerald-700 transition-colors"
                   >
-                    <Github size={15} /> Repository
+                    <GithubIcon className="w-4 h-4" />
+                    Source Code
                   </a>
-                )}
 
-                {project.demo && (
-                  <a
-                    href={project.demo}
+                  <Button
+                    label="View Details"
+                    variant="ghost"
+                    size="sm"
+                    href={project.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn btn-primary btn-sm"
-                  >
-                    <ExternalLink size={15} /> Live Demo
-                  </a>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+                  />
+                </div>
+              </Card>
+            ))}
+          </Grid>
+
+        </VStack>
       </div>
-    </section>
+    </Section>
   );
 }

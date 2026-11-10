@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Check, ExternalLink, FileText, ChevronDown, ChevronUp } from 'lucide-react';
+import { Copy, Check, ExternalLink, FileText, ChevronRight, ChevronDown, BookOpen } from 'lucide-react';
 import { papersData } from '../data/papersData';
 
 export default function Research() {
@@ -16,76 +16,100 @@ export default function Research() {
   const handleCopyBibtex = (paper) => {
     navigator.clipboard.writeText(paper.bibtex);
     setCopiedId(paper.id);
-    setTimeout(() => setCopiedId(null), 2500);
+    setTimeout(() => setCopiedId(null), 2200);
+  };
+
+  const getCategoryColor = (cat) => {
+    switch (cat) {
+      case 'AI Drug Discovery': return 'teal';
+      case 'Molecular Dynamics & FEP': return 'green';
+      case 'Structural Biophysics': return 'purple';
+      case 'Generative Chemistry': return 'orange';
+      default: return 'blue';
+    }
   };
 
   return (
-    <section id="research" className="section research-section">
-      <div className="container">
-        <div className="section-header">
-          <span className="section-subtitle">Peer-Reviewed Publications & Preprints</span>
-          <h2 className="section-title">Research Papers</h2>
-          <p className="section-description">
-            Peer-reviewed articles in computational biophysics, medicinal chemistry, and structural bioinformatics (JCIM, J. Med. Chem., Biophysical Journal) focusing on molecular dynamics and AI drug discovery.
-          </p>
+    <section id="research" className="notion-section">
+      <div className="notion-page-container">
+        <hr className="notion-divider" />
+
+        <div className="notion-section-header">
+          <div>
+            <h2 className="notion-section-title">
+              <span className="section-icon">📚</span> Publications & Preprints
+            </h2>
+            <p className="notion-section-desc">
+              Peer-reviewed articles in computational biophysics, structural bioinformatics, and machine learning for molecular design.
+            </p>
+          </div>
         </div>
 
-        {/* Category Filters */}
-        <div className="filter-bar">
+        {/* Notion Category Filter Pills */}
+        <div className="notion-filter-bar">
+          <span className="notion-filter-label">Filter:</span>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`filter-pill ${selectedCategory === cat ? 'active' : ''}`}
+              className={`notion-filter-btn ${selectedCategory === cat ? 'active' : ''}`}
             >
               {cat}
             </button>
           ))}
         </div>
 
-        {/* Papers List */}
-        <div className="papers-grid">
+        {/* Notion Database Items List */}
+        <div className="notion-database-list">
           {filteredPapers.map((paper) => {
             const isExpanded = expandedPaper === paper.id;
             const isCopied = copiedId === paper.id;
 
             return (
-              <div key={paper.id} className="glass-card paper-card">
-                <div className="paper-header">
-                  <div className="paper-badges">
-                    <span className="tag category-tag">{paper.category}</span>
-                    <span className="venue-badge">{paper.venue}</span>
+              <div key={paper.id} className="notion-paper-item">
+                <div className="notion-paper-header">
+                  <div className="notion-paper-title-row">
+                    <span className="notion-doc-icon">📄</span>
+                    <h3 className="notion-paper-title">{paper.title}</h3>
                   </div>
-                  <span className="paper-year">{paper.year}</span>
+                  <div className="notion-paper-tags">
+                    <span className={`notion-tag ${getCategoryColor(paper.category)}`}>
+                      {paper.category}
+                    </span>
+                    <span className="notion-tag gray">
+                      {paper.venue}
+                    </span>
+                  </div>
                 </div>
 
-                <h3 className="paper-title">{paper.title}</h3>
-                <p className="paper-authors">{paper.authors}</p>
+                <p className="notion-paper-authors">{paper.authors}</p>
 
-                <div className="paper-abstract-container">
-                  <p className={`paper-abstract ${isExpanded ? 'expanded' : 'truncated'}`}>
-                    {paper.abstract}
-                  </p>
+                {/* Collapsible Abstract Toggle */}
+                <div className="notion-toggle-block">
                   <button
                     onClick={() => setExpandedPaper(isExpanded ? null : paper.id)}
-                    className="toggle-abstract-btn"
+                    className="notion-toggle-btn"
                   >
-                    {isExpanded ? (
-                      <>Show Less <ChevronUp size={14} /></>
-                    ) : (
-                      <>Read Abstract <ChevronDown size={14} /></>
-                    )}
+                    {isExpanded ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
+                    <span>Abstract</span>
                   </button>
+
+                  {isExpanded && (
+                    <div className="notion-toggle-content">
+                      <p>{paper.abstract}</p>
+                    </div>
+                  )}
                 </div>
 
-                <div className="paper-actions">
+                {/* Action Bar */}
+                <div className="notion-item-actions">
                   <button
                     onClick={() => handleCopyBibtex(paper)}
-                    className={`btn btn-secondary btn-sm ${isCopied ? 'copied' : ''}`}
+                    className={`notion-btn notion-btn-sm ${isCopied ? 'copied' : ''}`}
                     title="Copy BibTeX Citation to Clipboard"
                   >
-                    {isCopied ? <Check size={14} /> : <Copy size={14} />}
-                    {isCopied ? 'Citation Copied!' : 'Copy BibTeX'}
+                    {isCopied ? <Check size={13} /> : <Copy size={13} />}
+                    {isCopied ? 'Copied to Clipboard' : 'Copy BibTeX'}
                   </button>
 
                   {paper.doi && (
@@ -93,9 +117,9 @@ export default function Research() {
                       href={`https://doi.org/${paper.doi}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="btn btn-secondary btn-sm"
+                      className="notion-btn notion-btn-sm"
                     >
-                      <ExternalLink size={14} /> Read Paper (DOI)
+                      <ExternalLink size={13} /> DOI Link
                     </a>
                   )}
 
@@ -104,9 +128,9 @@ export default function Research() {
                       href={paper.codeUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="btn btn-secondary btn-sm"
+                      className="notion-btn notion-btn-sm"
                     >
-                      <FileText size={14} /> Code
+                      <FileText size={13} /> Code Repository
                     </a>
                   )}
                 </div>

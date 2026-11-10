@@ -1,159 +1,198 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Send, CheckCircle2, Copy, Check, MessageSquare } from 'lucide-react';
+import { Section } from '@astryxdesign/core/Section';
+import { Heading } from '@astryxdesign/core/Heading';
+import { Text } from '@astryxdesign/core/Text';
+import { Card } from '@astryxdesign/core/Card';
+import { Grid } from '@astryxdesign/core/Grid';
+import { Badge } from '@astryxdesign/core/Badge';
+import { Button } from '@astryxdesign/core/Button';
+import { TextInput } from '@astryxdesign/core/TextInput';
+import { TextArea } from '@astryxdesign/core/TextArea';
+import { Banner } from '@astryxdesign/core/Banner';
+import { VStack } from '@astryxdesign/core/VStack';
+import { HStack } from '@astryxdesign/core/HStack';
 import { profileData } from '../data/profileData';
+import { Mail, MapPin, Send, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [copiedEmail, setCopiedEmail] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-    
-    // Open default mail client with pre-filled content to ensure message delivery
-    const mailtoSubject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name}`);
-    const mailtoBody = encodeURIComponent(`Hi Sanjay,\n\n${formData.message}\n\n---\nFrom: ${formData.name}\nEmail: ${formData.email}`);
-    window.location.href = `mailto:${profileData.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
+    setIsSubmitting(true);
 
-    setSubmitted(true);
+    // Simulate async submission and open mailto
     setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 4000);
-  };
+      setIsSubmitting(false);
+      setSubmitted(true);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(profileData.email);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+      const mailtoSubject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name}`);
+      const mailtoBody = encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`);
+      window.location.href = `mailto:${profileData.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
+    }, 600);
   };
 
   return (
-    <section id="contact" className="section contact-section">
-      <div className="container">
-        <div className="section-header">
-          <span className="section-subtitle">Get In Touch</span>
-          <h2 className="section-title">Let's Connect</h2>
-          <p className="section-description">
-            Interested in discussing computational biology, drug design collaborations, or consulting projects? Reach out directly.
-          </p>
-        </div>
+    <Section id="contact" variant="section" padding={6} className="py-16 border-t border-neutral-200 bg-neutral-50/50">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <VStack gap={8}>
+          
+          {/* Section Header */}
+          <VStack gap={2}>
+            <HStack gap={2} vAlign="center">
+              <Badge label="Get in Touch" variant="neutral" size="sm" />
+            </HStack>
+            <Heading level={2} weight="bold">
+              Let's Collaborate on Next-Gen Therapeutics
+            </Heading>
+            <Text color="secondary" size="lg">
+              Have a computational biology question, FEP pipeline inquiry, or seeking research collaboration? Reach out below.
+            </Text>
+          </VStack>
 
-        <div className="contact-grid">
-          {/* Left info panel */}
-          <div className="glass-card contact-info-card">
-            <div>
-              <h3 className="contact-info-title">Contact Information</h3>
-              <p className="contact-info-text">
-                Feel free to reach out for research discussions, academic collaborations, or conference speaking inquiries.
-              </p>
+          {/* Form and Info Layout */}
+          <Grid columns={{ minWidth: 300, max: 2 }} gap={6}>
+            
+            {/* Contact Details Card */}
+            <VStack gap={4}>
+              <Card padding={5} elevation="none" className="border border-neutral-200 bg-white">
+                <VStack gap={4}>
+                  <Heading level={4} weight="semibold">
+                    Direct Contact & Availability
+                  </Heading>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-700">
+                        <Mail className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs text-neutral-500 font-medium">Email Address</div>
+                        <a href={`mailto:${profileData.email}`} className="text-sm font-semibold text-neutral-900 hover:text-emerald-700 transition-colors">
+                          {profileData.email}
+                        </a>
+                      </div>
+                    </div>
 
-              <div className="contact-methods">
-                <div className="method-item">
-                  <div className="method-icon-box">
-                    <Mail size={20} />
-                  </div>
-                  <div>
-                    <span className="method-label">Direct Email</span>
-                    <div className="email-copy-wrapper">
-                      <a href={`mailto:${profileData.email}`} className="method-value">{profileData.email}</a>
-                      <button onClick={handleCopyEmail} className="copy-icon-btn" title="Copy Email">
-                        {copiedEmail ? <Check size={16} className="text-emerald" /> : <Copy size={16} />}
-                      </button>
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-700">
+                        <MapPin className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs text-neutral-500 font-medium">Location</div>
+                        <div className="text-sm font-semibold text-neutral-900">
+                          {profileData.location}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-700">
+                        <Clock className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs text-neutral-500 font-medium">Response Time</div>
+                        <div className="text-sm font-semibold text-neutral-900">
+                          Within 24–48 hours
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="method-item">
-                  <div className="method-icon-box">
-                    <MapPin size={20} />
+                  <div className="pt-2 border-t border-neutral-100">
+                    <div className="text-xs font-semibold text-neutral-700 mb-2 uppercase tracking-wider">
+                      Collaboration Interests
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      <Badge label="Allosteric Modulation" variant="neutral" size="sm" />
+                      <Badge label="Kinase FEP Automation" variant="neutral" size="sm" />
+                      <Badge label="GNN Binding Kinetics" variant="neutral" size="sm" />
+                      <Badge label="Wet-lab Validation" variant="neutral" size="sm" />
+                    </div>
                   </div>
-                  <div>
-                    <span className="method-label">Location</span>
-                    <span className="method-value">{profileData.location}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+                </VStack>
+              </Card>
+            </VStack>
 
-            <div className="contact-note">
-              <span className="contact-note-badge">Collaborations & Consulting</span>
-              <p>Available for structural biophysics discussions, pipeline development, and target modeling.</p>
-            </div>
-          </div>
+            {/* Interactive Contact Form */}
+            <Card padding={5} elevation="none" className="border border-neutral-200 bg-white">
+              <form onSubmit={handleSubmit}>
+                <VStack gap={4}>
+                  <Heading level={4} weight="semibold">
+                    Send a Direct Message
+                  </Heading>
 
-          {/* Right form panel */}
-          <div className="glass-card contact-form-card">
-            {submitted ? (
-              <div className="form-success">
-                <CheckCircle2 size={48} className="success-icon" />
-                <h3>Draft Opened in Mail Client!</h3>
-                <p>Your message has been prepared. If your email application didn't open automatically, you can email directly at <strong>{profileData.email}</strong>.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="name">Your Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      required
-                      placeholder="e.g. Dr. Sarah Jenkins"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="form-input"
+                  {submitted && (
+                    <Banner
+                      status="success"
+                      title="Message prepared!"
+                      description="Your default email client will open to send this message directly to Sanjay Mehta."
+                      isDismissable
+                      onDismiss={() => setSubmitted(false)}
                     />
-                  </div>
+                  )}
 
-                  <div className="form-group">
-                    <label htmlFor="email">Your Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      placeholder="sarah@university.edu"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="form-input"
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="subject">Subject</label>
-                  <input
-                    type="text"
-                    id="subject"
-                    placeholder="Research Collaboration / In Silico Screening"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="form-input"
+                  <TextInput
+                    label="Your Full Name"
+                    placeholder="e.g. Dr. Jane Doe"
+                    value={formData.name}
+                    onChange={(val) => setFormData(prev => ({ ...prev, name: val }))}
+                    isRequired
+                    width="100%"
                   />
-                </div>
 
-                <div className="form-group">
-                  <label htmlFor="message">Message</label>
-                  <textarea
-                    id="message"
-                    required
-                    rows={5}
-                    placeholder="Describe your project, inquiry, or collaboration idea..."
+                  <TextInput
+                    label="Your Email"
+                    type="email"
+                    placeholder="e.g. jane.doe@biotech.com"
+                    value={formData.email}
+                    onChange={(val) => setFormData(prev => ({ ...prev, email: val }))}
+                    isRequired
+                    width="100%"
+                  />
+
+                  <TextInput
+                    label="Subject / Topic"
+                    placeholder="e.g. Potential Collaboration on Kinase FEP"
+                    value={formData.subject}
+                    onChange={(val) => setFormData(prev => ({ ...prev, subject: val }))}
+                    width="100%"
+                  />
+
+                  <TextArea
+                    label="Message / Inquiry"
+                    placeholder="Describe your research project, question, or proposal..."
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="form-input form-textarea"
-                  ></textarea>
-                </div>
+                    onChange={(val) => setFormData(prev => ({ ...prev, message: val }))}
+                    isRequired
+                    rows={4}
+                    width="100%"
+                  />
 
-                <button type="submit" className="btn btn-primary btn-full">
-                  <Send size={18} /> Send Message via Email
-                </button>
+                  <Button
+                    label={isSubmitting ? "Sending..." : "Send Message"}
+                    variant="primary"
+                    size="md"
+                    type="submit"
+                    isLoading={isSubmitting}
+                    width="100%"
+                  />
+                </VStack>
               </form>
-            )}
-          </div>
-        </div>
+            </Card>
+
+          </Grid>
+
+        </VStack>
       </div>
-    </section>
+    </Section>
   );
 }
