@@ -12,6 +12,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   </head>
   <body>
+    <!-- Inline script to prevent theme flash -->
+    <script>
+      (function() {
+        try {
+          var mode = localStorage.getItem('theme-mode') || localStorage.getItem('theme');
+          var isDark = mode ? mode === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var themeVal = isDark ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', themeVal);
+          document.documentElement.style.colorScheme = themeVal;
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

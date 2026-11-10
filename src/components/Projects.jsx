@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Section } from '@astryxdesign/core/Section';
 import { Heading } from '@astryxdesign/core/Heading';
-import { Text } from '@astryxdesign/core/Text';
 import { Card } from '@astryxdesign/core/Card';
 import { Grid } from '@astryxdesign/core/Grid';
 import { Badge } from '@astryxdesign/core/Badge';
@@ -10,7 +9,7 @@ import { VStack } from '@astryxdesign/core/VStack';
 import { HStack } from '@astryxdesign/core/HStack';
 import { projectsData } from '../data/projectsData';
 import { GithubIcon } from './Icons';
-import { Star, GitFork, ExternalLink, Code2, Sparkles, FolderGit2 } from 'lucide-react';
+import { Star, FolderGit2 } from 'lucide-react';
 
 export default function Projects() {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -45,9 +44,9 @@ export default function Projects() {
               <Heading level={2} weight="bold">
                 Featured Projects & Software
               </Heading>
-              <Text color="secondary" size="lg">
+              <p className="text-base sm:text-lg text-[var(--app-text-muted)]">
                 Production-grade algorithms, computational pipelines, and deep learning architectures for therapeutic discovery.
-              </Text>
+              </p>
             </VStack>
 
             {/* Filter Pills */}
@@ -57,10 +56,10 @@ export default function Projects() {
                   key={filter}
                   type="button"
                   onClick={() => setSelectedFilter(filter)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     selectedFilter === filter
-                      ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-sm'
-                      : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
+                      ? 'bg-[var(--app-text)] text-[var(--app-bg)] shadow-sm'
+                      : 'bg-[var(--app-surface-subtle)] hover:bg-[var(--app-border)] text-[var(--app-text-muted)] border border-[var(--app-border)]'
                   }`}
                 >
                   {filter}
@@ -76,14 +75,14 @@ export default function Projects() {
                 key={project.id}
                 padding={5}
                 elevation="none"
-                className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all flex flex-col justify-between"
+                className="border border-[var(--app-border)] bg-[var(--app-card-bg)] hover:border-emerald-500 hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <VStack gap={4}>
                   
                   {/* Card Header */}
                   <div className="flex items-start justify-between gap-2">
                     <HStack gap={2} vAlign="center">
-                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300">
                         <FolderGit2 className="w-5 h-5" />
                       </div>
                       <div>
@@ -100,7 +99,7 @@ export default function Projects() {
 
                     {/* Stars Pill */}
                     {project.stars && (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-xs font-mono font-medium">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-[var(--app-surface-subtle)] text-[var(--app-text)] border border-[var(--app-border)] text-xs font-mono font-medium">
                         <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                         {project.stars}
                       </span>
@@ -108,31 +107,31 @@ export default function Projects() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed min-h-[50px]">
+                  <p className="text-sm text-[var(--app-text-muted)] leading-relaxed min-h-[50px]">
                     {project.description}
                   </p>
 
                   {/* Tech Stack Tags */}
                   <div className="flex flex-wrap gap-1.5">
                     {project.tags.map((tag, i) => (
-                      <Badge
+                      <span
                         key={i}
-                        label={tag}
-                        variant="neutral"
-                        size="sm"
-                      />
+                        className="text-xs px-2 py-0.5 rounded-md border border-[var(--app-border)] bg-[var(--app-tag-bg)] text-[var(--app-tag-text)] font-medium font-mono"
+                      >
+                        {tag}
+                      </span>
                     ))}
                   </div>
 
                 </VStack>
 
                 {/* Card Footer Actions */}
-                <div className="pt-4 mt-4 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+                <div className="pt-4 mt-4 border-t border-[var(--app-border)] flex items-center justify-between">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-800 dark:text-neutral-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--app-text)] hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                   >
                     <GithubIcon className="w-4 h-4" />
                     Source Code

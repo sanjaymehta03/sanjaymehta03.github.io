@@ -9,8 +9,8 @@ import { VStack } from '@astryxdesign/core/VStack';
 import { HStack } from '@astryxdesign/core/HStack';
 import { Grid } from '@astryxdesign/core/Grid';
 import { profileData } from '../data/profileData';
-import { GithubIcon, LinkedinIcon, ScholarIcon, TwitterIcon } from './Icons';
-import { MapPin, Mail, FileText, Sparkles, ArrowRight, Activity, Cpu } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, ScholarIcon } from './Icons';
+import { MapPin, Mail, Activity } from 'lucide-react';
 
 export default function Hero({ onOpenResume }) {
   return (
@@ -40,13 +40,13 @@ export default function Hero({ onOpenResume }) {
             <Heading level={3} color="secondary" weight="medium" justify="center">
               {profileData.title}
             </Heading>
-            <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-2xl mx-auto mt-2">
+            <p className="text-lg md:text-xl text-[var(--app-text-muted)] leading-relaxed max-w-2xl mx-auto mt-2">
               {profileData.bio}
             </p>
           </VStack>
 
           {/* Location & Metadata Pill */}
-          <HStack gap={4} vAlign="center" hAlign="center" wrap="wrap" className="text-sm text-neutral-500 dark:text-neutral-400">
+          <HStack gap={4} vAlign="center" hAlign="center" wrap="wrap" className="text-sm text-[var(--app-text-subtle)]">
             <span className="inline-flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               {profileData.location}
@@ -66,7 +66,7 @@ export default function Hero({ onOpenResume }) {
           {/* Action CTAs */}
           <HStack gap={3} vAlign="center" hAlign="center" wrap="wrap" className="pt-2">
             <Button
-              label="Explore Research & Projects"
+              label="Explore Projects"
               variant="primary"
               size="lg"
               href="#projects"
@@ -78,7 +78,7 @@ export default function Hero({ onOpenResume }) {
               href="#contact"
             />
             <Button
-              label="View Full CV / Resume"
+              label="View Full CV"
               variant="ghost"
               size="lg"
               onClick={onOpenResume}
@@ -91,7 +91,7 @@ export default function Hero({ onOpenResume }) {
               href={profileData.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-200 text-xs font-medium transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] hover:bg-[var(--app-surface-subtle)] text-[var(--app-text)] text-xs font-medium transition-all shadow-sm"
             >
               <GithubIcon className="w-4 h-4" />
               GitHub
@@ -100,7 +100,7 @@ export default function Hero({ onOpenResume }) {
               href={profileData.scholar}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-200 text-xs font-medium transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] hover:bg-[var(--app-surface-subtle)] text-[var(--app-text)] text-xs font-medium transition-all shadow-sm"
             >
               <ScholarIcon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               Google Scholar
@@ -109,14 +109,14 @@ export default function Hero({ onOpenResume }) {
               href={profileData.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-200 text-xs font-medium transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] hover:bg-[var(--app-surface-subtle)] text-[var(--app-text)] text-xs font-medium transition-all shadow-sm"
             >
               <LinkedinIcon className="w-4 h-4 text-blue-700 dark:text-blue-400" />
               LinkedIn
             </a>
             <a
               href={`mailto:${profileData.email}`}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-200 text-xs font-medium transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] hover:bg-[var(--app-surface-subtle)] text-[var(--app-text)] text-xs font-medium transition-all shadow-sm"
             >
               <Mail className="w-4 h-4 text-rose-500 dark:text-rose-400" />
               Email Direct
@@ -131,13 +131,13 @@ export default function Hero({ onOpenResume }) {
                   key={i}
                   padding={3}
                   elevation="none"
-                  className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 hover:border-emerald-400 dark:hover:border-emerald-600 transition-colors shadow-sm"
+                  className="border border-[var(--app-border)] bg-[var(--app-card-bg)] hover:border-emerald-500 transition-colors shadow-sm"
                 >
                   <VStack gap={1} hAlign="center">
-                    <span className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 font-mono">
+                    <span className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--app-text)] font-mono">
                       {stat.value}
                     </span>
-                    <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+                    <span className="text-xs font-medium text-[var(--app-text-subtle)] uppercase tracking-wider">
                       {stat.label}
                     </span>
                   </VStack>

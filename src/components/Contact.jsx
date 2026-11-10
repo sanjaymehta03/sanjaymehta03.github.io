@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Section } from '@astryxdesign/core/Section';
 import { Heading } from '@astryxdesign/core/Heading';
-import { Text } from '@astryxdesign/core/Text';
 import { Card } from '@astryxdesign/core/Card';
 import { Grid } from '@astryxdesign/core/Grid';
 import { Badge } from '@astryxdesign/core/Badge';
@@ -12,7 +11,7 @@ import { Banner } from '@astryxdesign/core/Banner';
 import { VStack } from '@astryxdesign/core/VStack';
 import { HStack } from '@astryxdesign/core/HStack';
 import { profileData } from '../data/profileData';
-import { Mail, MapPin, Send, MessageSquare, CheckCircle, Clock } from 'lucide-react';
+import { Mail, MapPin, Clock } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -41,7 +40,7 @@ export default function Contact() {
   };
 
   return (
-    <Section id="contact" variant="section" padding={6} className="py-16 border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-950/50 transition-colors duration-200">
+    <Section id="contact" variant="section" padding={6} className="py-16 border-t border-[var(--app-border)] bg-[var(--app-surface-subtle)]/60 transition-colors duration-200">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <VStack gap={8}>
           
@@ -53,9 +52,9 @@ export default function Contact() {
             <Heading level={2} weight="bold">
               Let's Collaborate on Next-Gen Therapeutics
             </Heading>
-            <Text color="secondary" size="lg">
+            <p className="text-base sm:text-lg text-[var(--app-text-muted)]">
               Have a computational biology question, FEP pipeline inquiry, or seeking research collaboration? Reach out below.
-            </Text>
+            </p>
           </VStack>
 
           {/* Form and Info Layout */}
@@ -63,7 +62,7 @@ export default function Contact() {
             
             {/* Contact Details Card */}
             <VStack gap={4}>
-              <Card padding={5} elevation="none" className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
+              <Card padding={5} elevation="none" className="border border-[var(--app-border)] bg-[var(--app-card-bg)] shadow-sm">
                 <VStack gap={4}>
                   <Heading level={4} weight="semibold">
                     Direct Contact & Availability
@@ -71,51 +70,55 @@ export default function Contact() {
                   
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300">
                         <Mail className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">Email Address</div>
-                        <a href={`mailto:${profileData.email}`} className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                        <div className="text-xs text-[var(--app-text-subtle)] font-medium">Email Address</div>
+                        <a href={`mailto:${profileData.email}`} className="text-sm font-semibold text-[var(--app-text)] hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                           {profileData.email}
                         </a>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300">
                         <MapPin className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">Location</div>
-                        <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                        <div className="text-xs text-[var(--app-text-subtle)] font-medium">Location</div>
+                        <div className="text-sm font-semibold text-[var(--app-text)]">
                           {profileData.location}
                         </div>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300">
                         <Clock className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">Response Time</div>
-                        <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                        <div className="text-xs text-[var(--app-text-subtle)] font-medium">Response Time</div>
+                        <div className="text-sm font-semibold text-[var(--app-text)]">
                           Within 24–48 hours
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
-                    <div className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-2 uppercase tracking-wider">
+                  <div className="pt-2 border-t border-[var(--app-border)]">
+                    <div className="text-xs font-semibold text-[var(--app-text)] mb-2 uppercase tracking-wider">
                       Collaboration Interests
                     </div>
                     <div className="flex flex-wrap gap-1.5">
-                      <Badge label="Allosteric Modulation" variant="neutral" size="sm" />
-                      <Badge label="Kinase FEP Automation" variant="neutral" size="sm" />
-                      <Badge label="GNN Binding Kinetics" variant="neutral" size="sm" />
-                      <Badge label="Wet-lab Validation" variant="neutral" size="sm" />
+                      {["Allosteric Modulation", "Kinase FEP Automation", "GNN Binding Kinetics", "Wet-lab Validation"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="text-xs px-2 py-0.5 rounded-md border border-[var(--app-border)] bg-[var(--app-tag-bg)] text-[var(--app-tag-text)] font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </VStack>
@@ -123,7 +126,7 @@ export default function Contact() {
             </VStack>
 
             {/* Interactive Contact Form */}
-            <Card padding={5} elevation="none" className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
+            <Card padding={5} elevation="none" className="border border-[var(--app-border)] bg-[var(--app-card-bg)] shadow-sm">
               <form onSubmit={handleSubmit}>
                 <VStack gap={4}>
                   <Heading level={4} weight="semibold">
@@ -134,7 +137,7 @@ export default function Contact() {
                     <Banner
                       status="success"
                       title="Message prepared!"
-                      description="Your default email client will open to send this message directly to Sanjay Mehta."
+                      description="Your email client will open with the pre-filled inquiry."
                       isDismissable
                       onDismiss={() => setSubmitted(false)}
                     />
