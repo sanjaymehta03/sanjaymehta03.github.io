@@ -41,7 +41,7 @@ export default function Contact() {
   };
 
   return (
-    <Section id="contact" variant="section" padding={6} className="py-16 border-t border-neutral-200 bg-neutral-50/50">
+    <Section id="contact" variant="section" padding={6} className="py-16 border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-950/50 transition-colors duration-200">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <VStack gap={8}>
           
@@ -63,7 +63,7 @@ export default function Contact() {
             
             {/* Contact Details Card */}
             <VStack gap={4}>
-              <Card padding={5} elevation="none" className="border border-neutral-200 bg-white">
+              <Card padding={5} elevation="none" className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
                 <VStack gap={4}>
                   <Heading level={4} weight="semibold">
                     Direct Contact & Availability
@@ -71,44 +71,44 @@ export default function Contact() {
                   
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-700">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400">
                         <Mail className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-xs text-neutral-500 font-medium">Email Address</div>
-                        <a href={`mailto:${profileData.email}`} className="text-sm font-semibold text-neutral-900 hover:text-emerald-700 transition-colors">
+                        <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">Email Address</div>
+                        <a href={`mailto:${profileData.email}`} className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                           {profileData.email}
                         </a>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-700">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400">
                         <MapPin className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-xs text-neutral-500 font-medium">Location</div>
-                        <div className="text-sm font-semibold text-neutral-900">
+                        <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">Location</div>
+                        <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                           {profileData.location}
                         </div>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-700">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400">
                         <Clock className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-xs text-neutral-500 font-medium">Response Time</div>
-                        <div className="text-sm font-semibold text-neutral-900">
+                        <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">Response Time</div>
+                        <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                           Within 24–48 hours
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-neutral-100">
-                    <div className="text-xs font-semibold text-neutral-700 mb-2 uppercase tracking-wider">
+                  <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
+                    <div className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-2 uppercase tracking-wider">
                       Collaboration Interests
                     </div>
                     <div className="flex flex-wrap gap-1.5">
@@ -123,7 +123,7 @@ export default function Contact() {
             </VStack>
 
             {/* Interactive Contact Form */}
-            <Card padding={5} elevation="none" className="border border-neutral-200 bg-white">
+            <Card padding={5} elevation="none" className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
               <form onSubmit={handleSubmit}>
                 <VStack gap={4}>
                   <Heading level={4} weight="semibold">

@@ -59,8 +59,8 @@ export default function Projects() {
                   onClick={() => setSelectedFilter(filter)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                     selectedFilter === filter
-                      ? 'bg-neutral-900 text-white shadow-sm'
-                      : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+                      ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-sm'
+                      : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
                   }`}
                 >
                   {filter}
@@ -76,14 +76,14 @@ export default function Projects() {
                 key={project.id}
                 padding={5}
                 elevation="none"
-                className="border border-neutral-200 bg-white hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between"
+                className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <VStack gap={4}>
                   
                   {/* Card Header */}
                   <div className="flex items-start justify-between gap-2">
                     <HStack gap={2} vAlign="center">
-                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-700">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400">
                         <FolderGit2 className="w-5 h-5" />
                       </div>
                       <div>
@@ -91,7 +91,7 @@ export default function Projects() {
                           {project.title}
                         </Heading>
                         {project.featured && (
-                          <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+                          <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/70 px-1.5 py-0.5 rounded">
                             Featured
                           </span>
                         )}
@@ -100,7 +100,7 @@ export default function Projects() {
 
                     {/* Stars Pill */}
                     {project.stars && (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-neutral-100 text-neutral-700 text-xs font-mono font-medium">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-xs font-mono font-medium">
                         <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                         {project.stars}
                       </span>
@@ -108,7 +108,7 @@ export default function Projects() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-neutral-600 leading-relaxed min-h-[50px]">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed min-h-[50px]">
                     {project.description}
                   </p>
 
@@ -127,12 +127,12 @@ export default function Projects() {
                 </VStack>
 
                 {/* Card Footer Actions */}
-                <div className="pt-4 mt-4 border-t border-neutral-100 flex items-center justify-between">
+                <div className="pt-4 mt-4 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-800 hover:text-emerald-700 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-800 dark:text-neutral-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                   >
                     <GithubIcon className="w-4 h-4" />
                     Source Code
